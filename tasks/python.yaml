@@ -7,12 +7,20 @@
     - python3-nmap
     - python3-scrapy
     - python3-virtualenv
+    - python3-tk
+    - libncurses-dev
+    - libssl-dev
+    - libreadline-dev
+    - liblzma-dev
+    - libsqlite3-dev
+    - libffi-dev
+    - libbz2-dev
   become: true
     
 - name: Pyenv install script download
   get_url:
     url: https://pyenv.run
-    dest: /tmp/pyenv.run
+    dest: /tmp/pytk-interenv.run
     mode: 0755
     
 - name: pyenv install
@@ -24,4 +32,25 @@
   pip:
     name:
     - poetry
+
+- name: Config poetry to create venvs in project
+  shell:
+    cmd: python3 -m poetry config virtualenvs.in-project true
+
+- name: Set PYENV_ROOT in .zshrc
+  lineinfile:
+    path: "{{ ansible_user_dir }}/.zshrc"
+    line: export PYENV_ROOT="$HOME/.pyenv"
+    
+- name: Put pyenv in PATH
+  lineinfile:
+    path: "{{ ansible_user_dir }}/.zshrc"
+    line: 'export PATH="$PYENV_ROOT/bin:$PATH"'
+    insertafter: 'export PYENV_ROOT="$HOME/.pyenv"'
+
+- name: Shim pyenv
+  lineinfile:
+    path: "{{ ansible_user_dir }}/.zshrc"
+    line: 'eval "$(pyenv init --path)"'
+    insertafter: 'export PATH="$PYENV_ROOT/bin:$PATH"'
 

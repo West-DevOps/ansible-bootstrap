@@ -24,6 +24,8 @@
       - ca-certificates
       - nmap
       - ncrack
+      - tmux
+      - openssh-server
     become: true
   
   - name: Ensure keyring
@@ -45,11 +47,17 @@
       cmd: echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
       creates: /etc/apt/sources.list.d/docker.list
     become: true
-      
+
+  - name: download docker desktop
+    get_url:
+      url: https://desktop.docker.com/linux/main/amd64/149282/docker-desktop-4.30.0-amd64.deb
+      dest: /tmp/docker-desktop-4.30.0-amd64.deb
+      mode: 0644
+
   - name: Install Docker desktop (and k8s)
     apt:
       update_cache: true
-      deb: https://desktop.docker.com/linux/main/amd64/149282/docker-desktop-4.30.0-amd64.deb
+      deb: /tmp/docker-desktop-4.30.0-amd64.deb
     become: true
       
   - name: Get oh-my-zsh! install script
@@ -69,6 +77,12 @@
       shell: /bin/zsh
     become: true
     
+  - name: oh-my-zsh plugins
+    lineinfile:
+      path: "{{ ansible_user_dir }}/.zshrc"
+      regexp: "^plugins=\\(.*\\)$"
+      line: "plugins=(git docker kubectl ansible argocd gpg-agent node helm npm nvm poetry pyenv ssh virtualenv vscode tmux)"
+    
   - name: Python development
     include_tasks: tasks/python.yaml
     when: install_python != false or install_all != false
@@ -81,7 +95,7 @@
     include_tasks: tasks/rust.yaml
     when: install_rust != false or install_all != false
     
-  - name: Java development
+  - name: Java development kit
     apt:
       name:
       - openjdk-21-jdk
