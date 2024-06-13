@@ -1,30 +1,44 @@
 # ansible-bootstrap
-For installing all development tools onto a fresh machin
+For installing development tools onto a fresh ubuntu machine.
+
+It installs a few things "by default" and has variables to enable language dev envs. Docker desktop is installed by default so you can develop any language in containers and not bother installing any runtimes locally if you wish.
+
 ## Running
 
-* `apt install ansible` to install ansible
-* `sudo ls` to cache sudo privs for the run 
-* `ansible-playbook playbook.yaml -v -e install_all=true` for a full install or...
-* `ansible-playbook playbook.yaml -v` for a more minimal docker + vscode only install. 
-* Logout of the desktop and log back in to pickup default shell changes.
+From a completely fresh install of Ubuntu, grab the repo and `cd` into it; then:
 
-## What does it install 
+* `apt install ansible` to install ansible
+* `sudo ls` to cache sudo privs for the ansible run 
+* `ansible-playbook playbook.yaml -v -e install_all=true` for a full install or...
+* `ansible-playbook playbook.yaml -v` for a more minimal docker and tools only install. 
+* Logout of the desktop and log back in to pickup default shell changes and `PATH` additions etc.
+
+## What does it do? 
+
+Installs a "sensible base" for any kind of development, no IDE, no language specific compilers or anything. Just this:
 
 * Docker desktop (you can enable k8s in it after) 
-* oh-my-zsh (and makes `zsh` the default shell)
+* The holy `oh-my-zsh` and sets plugins (and makes `zsh` the default shell)
 * curl and other net-tooling
-
+* `git`, `gnupg2`, `jq`, `sshd` and various other tools found on development machines
 
 ### Optional software
 
-Optionally we can also install the development kits for various languages:
+Optionally we can also install language specific development kits "on the machine":
 
-* Python with `poetry` and `pyenv`
-* JS/TS with `nodejs` / `nvm`
-* Rust with `cargo`
-* Java `openjdk-21-jdk`
+* `Python` with `poetry` and `pyenv`
+* `JS`/`TS` with `nodejs` and `nvm`
+* `Rust` with `cargo`
+* `Java - openjdk-21-jdk`
+* K8s toolbag (`helm`, `kubectl`, `k9s` etc.)
 
-Single languages can be enabled with the `install_*` variables or the catch all `install_all` for a complete install of all languages this playbook can provide e.g: 
+Single languages can be enabled with the `install_*` variables found in `playbook.yaml` or use the catch all `install_all` variable for a complete install of all languages this playbook can provide e.g: 
+
+For vscode and python:
+
+`ansible-playbook playbook.yaml -v -e install_python=true -e install_vscode=true`
+
+For every language supported by the playbook:
 
 `ansible-playbook playbook.yaml -v -e install_all=true`
 
@@ -44,5 +58,8 @@ with `pyenv`:
 
 `pyenv install 3.12`
 
-It might moan about tkinter but don't worry it still installs the version. 
+It might warn about tkinter but don't worry it still installs the version. 
 
+## Contributing
+
+Just fork and submit a PR, if it's for a specific development need; try and gate it with a top-level `install_<something>` variable.  

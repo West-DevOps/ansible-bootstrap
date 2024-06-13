@@ -11,23 +11,11 @@
 
 - name: Install rust vscode extensions
   shell:
-    cmd: code --install-extension 1yib.rust-bundle --force
-
-- name: Install nodejs vscode extensions
-  shell:
-    cmd: code --install-extension 1yib.nodejs-bundle --force
-- name: Install Java vscode extensions
-  shell: 
-    cmd: code --install-extension oracle.oracle-java --force
-
-- name: Install python vscode extensions
-  shell: 
-    cmd: code --install-extension ms-python.python --force   
-
-- name: Install database navigator vscode extension
-  shell: 
-    cmd: code --install-extension cweijan.vscode-database-client2 --force
-
-- name: Install database navigator JDBC plugin vscode extension
-  shell: 
-    cmd: code --install-extension cweijan.dbclient-jdbc --force
+    cmd: "code --install-extension {{ item }} --force"
+  loop:
+  - 1yib.rust-bundle
+  - 1yib.nodejs-bundle
+  - oracle.oracle-java
+  - ms-python.python
+  - cweijan.vscode-database-client2
+  - cweijan.dbclient-jdbc
