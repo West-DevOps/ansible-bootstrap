@@ -18,6 +18,8 @@
       - curl
       - python3-pip
       - ca-certificates
+      - nmap
+      - ncrack
     become: true
   
   - name: Ensure keyring
@@ -43,7 +45,7 @@
   - name: Install Docker desktop (and k8s)
     apt:
       update_cache: true
-      deb: https://desktop.docker.com/linux/main/amd64/149282/docker-desktop-4.31.0-amd64.deb
+      deb: https://desktop.docker.com/linux/main/amd64/149282/docker-desktop-4.30.0-amd64.deb
     become: true
       
   - name: Get oh-my-zsh! install script
@@ -57,10 +59,10 @@
       cmd: /tmp/install.sh 
       creates: "{{ ansible_user_dir }}/.oh-my-zsh/README.md"
       
-  - name: Make zsh default shell
+  - name: Make zsh the default shell for the running user
     user:
       name: "{{ ansible_user_id }}"
-      shell: zsh
+      shell: /zsh/bin
     become: true
       
     
