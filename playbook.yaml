@@ -2,6 +2,12 @@
 - name: Ubuntu dev machine
   hosts: localhost
   become_user: root
+  vars:
+    install_python: false
+    install_rust: false
+    install_node: false
+    install_java: false
+    install_all: false
   
   tasks:
   - name: Install base APT pkgs
@@ -13,10 +19,8 @@
       - ansible
       - zsh
       - gnupg2
-      - openjdk-18-jdk
       - net-tools
       - curl
-      - python3-pip
       - ca-certificates
       - nmap
       - ncrack
@@ -64,6 +68,22 @@
       name: "{{ ansible_user_id }}"
       shell: /zsh/bin
     become: true
-      
+    
+  - name: Python development
+    include_tasks: tasks/python.yaml
+    when: install_python != false or install_all != false
+    
+  - name: nodejs development
+    include_tasks: tasks/nodejs.yaml
+    when: install_node != false or install_all != false
+    
+  - name: Rust development
+    include_tasks: tasks/rust.yaml
+    when: install_rust != false or install_all != false
+    
+  - name: Java development
+    include_tasks: tasks/java.yaml
+    when: install_java != false or install_all != false
+
     
     

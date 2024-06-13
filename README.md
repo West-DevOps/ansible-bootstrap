@@ -4,7 +4,6 @@ For installing all development tools onto a fresh machine
 ## Running
 
 * `apt install ansible`
-* `cd playbooks`
 * `sudo ls`
 * `ansible-playbook playbook.yaml -v`
 * Logout of the desktop and log back in to pickup default shell changes.
@@ -22,3 +21,9 @@ Optionally we can also install the development kits for various languages:
 * Python with poetry and pyenv
 * JS/TS with nodejs
 * Rust
+* Java
+
+All of them can be enabled with the `install_language` variables or the catch all `install_all` for a complete install of all languages this playbook can provide e.g: 
+
+`ansible-playbook playbook.yaml -v -e install_all=true`
+

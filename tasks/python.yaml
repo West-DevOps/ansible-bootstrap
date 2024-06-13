@@ -1,0 +1,27 @@
+- name: Python APT pkgs
+  apt:
+    autoclean: true
+    autoremove: true
+    name:
+    - python3-pip
+    - python3-nmap
+    - python3-scrapy
+    - python3-virtualenv
+  become: true
+    
+- name: Pyenv install script download
+  get_url:
+    url: https://pyenv.run
+    dest: /tmp/pyenv.run
+    mode: 0755
+    
+- name: pyenv install
+  script:
+    cmd: /tmp/pyenv.run
+    creates: "{{ ansible_user_dir }}/.pyenv"
+    
+- name: Install poetry into system python install
+  pip:
+    name:
+    - poetry
+

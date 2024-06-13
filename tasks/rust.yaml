@@ -1,0 +1,11 @@
+- name: Get rust installer script
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/rustup.sh
+    mode: 0755
+    
+- name: Run rust installer
+  script:
+    cmd: /tmp/rustup.sh -y
+    creates: "{{ ansible_user_dir }}/.cargo"
+
