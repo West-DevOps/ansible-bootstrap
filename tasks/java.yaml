@@ -1,5 +1,0 @@
-- name: Install JDK 21
-  apt:
-    name:
-    - openjdk-21-jdk
-

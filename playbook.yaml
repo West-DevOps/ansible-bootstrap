@@ -82,8 +82,9 @@
     when: install_rust != false or install_all != false
     
   - name: Java development
-    include_tasks: tasks/java.yaml
+    apt:
+      name:
+      - openjdk-21-jdk
+    become: true
     when: install_java != false or install_all != false
 
-    
-    
