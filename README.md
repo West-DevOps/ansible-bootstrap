@@ -1,6 +1,5 @@
 # ansible-bootstrap
-For installing all development tools onto a fresh machine
-
+For installing all development tools onto a fresh machin
 ## Running
 
 * `apt install ansible`
@@ -19,11 +18,17 @@ For installing all development tools onto a fresh machine
 Optionally we can also install the development kits for various languages:
 
 * Python with poetry and pyenv
-* JS/TS with nodejs
+* JS/TS with `nodejs` / `nvm`
 * Rust
 * Java
 
 All of them can be enabled with the `install_language` variables or the catch all `install_all` for a complete install of all languages this playbook can provide e.g: 
 
 `ansible-playbook playbook.yaml -v -e install_all=true`
+
+## Post run 
+
+Install a version of nodejs via `nvm`:
+
+`nvm install 20` or `nvm install 22`
 
