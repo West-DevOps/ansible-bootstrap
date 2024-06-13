@@ -2,9 +2,10 @@
 For installing all development tools onto a fresh machin
 ## Running
 
-* `apt install ansible`
-* `sudo ls`
-* `ansible-playbook playbook.yaml -v`
+* `apt install ansible` to install ansible
+* `sudo ls` to cache sudo privs for the run 
+* `ansible-playbook playbook.yaml -v -e install_all=true` for a full install or...
+* `ansible-playbook playbook.yaml -v` for a more minimal docker + vscode only install. 
 * Logout of the desktop and log back in to pickup default shell changes.
 
 ## What does it install 

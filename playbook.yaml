@@ -7,6 +7,7 @@
     install_rust: false
     install_node: false
     install_java: false
+    install_vscode: false
     install_all: false
   
   tasks:
@@ -26,6 +27,8 @@
       - ncrack
       - tmux
       - openssh-server
+      - sqlite3
+      - sqlite3-doc
     become: true
   
   - name: Ensure keyring
@@ -82,7 +85,11 @@
       path: "{{ ansible_user_dir }}/.zshrc"
       regexp: "^plugins=\\(.*\\)$"
       line: "plugins=(git docker kubectl ansible argocd gpg-agent node helm npm nvm poetry pyenv ssh virtualenv vscode tmux)"
-    
+      
+  - name: install vscode
+    include_tasks: tasks/vscode.yaml
+    when: install_vscode != false or install_all != false
+      
   - name: Python development
     include_tasks: tasks/python.yaml
     when: install_python != false or install_all != false
