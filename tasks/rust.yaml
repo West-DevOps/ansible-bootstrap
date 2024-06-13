@@ -9,3 +9,7 @@
     cmd: /tmp/rustup.sh -y
     creates: "{{ ansible_user_dir }}/.cargo"
 
+- name: Run rustup update
+  shell:
+    cmd: rustup update
+

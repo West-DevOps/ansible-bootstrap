@@ -43,4 +43,5 @@ with `pyenv`:
 
 `pyenv install 3.12`
 
+It might moan about tkinter but don't worry it still installs the version. 
 
