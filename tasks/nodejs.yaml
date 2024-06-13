@@ -8,8 +8,4 @@
   script: 
     cmd: /tmp/nvm.sh
     creates: "{{ ansible_user_dir }}/.nvm"
-    
-- name: run NVM installer
-  script: 
-    cmd: "{{ ansible_user_dir }}/.nvm/install.sh"
-    
+
