@@ -1,0 +1,24 @@
+- name: download docker gpg key
+  get_url:
+    url: https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key
+    dest: /tmp/k8s.gpg.key
+    mode: 0644
+
+- name: add k8s gpg key to APT
+  shell:
+    cmd: cat /tmp/k8s.gpg.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg > /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  become: true
+
+- name: Install kubectl repo to APT
+  shell:
+    cmd: echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list >/dev/null
+    creates: /etc/apt/sources.list.d/kubernetes.list
+  become: true
+
+- name: Install kubectl 
+  apt:
+    update_cache: true
+    name:
+    - kubectl
+  become: true

@@ -8,6 +8,7 @@
     install_node: false
     install_java: false
     install_vscode: false
+    install_k8s: false
     install_all: false
   
   tasks:
@@ -29,6 +30,7 @@
       - openssh-server
       - sqlite3
       - sqlite3-doc
+      - apt-transport-https
     become: true
   
   - name: Ensure keyring
@@ -85,7 +87,11 @@
       path: "{{ ansible_user_dir }}/.zshrc"
       regexp: "^plugins=\\(.*\\)$"
       line: "plugins=(git docker kubectl ansible argocd gpg-agent node helm npm nvm poetry pyenv ssh virtualenv vscode tmux)"
-      
+  
+  - name: K8s tooling install
+    include_tasks: tasks/k8s.yaml
+    when: install_k8s != false or install_all != false     
+  
   - name: install vscode
     include_tasks: tasks/vscode.yaml
     when: install_vscode != false or install_all != false

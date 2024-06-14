@@ -5,7 +5,7 @@ It installs a few things "by default" and has variables to enable language dev e
 
 ## Running
 
-From a completely fresh install of Ubuntu, grab the repo and `cd` into it; then:
+From a completely fresh install of Ubuntu, grab the repo and `cd` into it; then run:
 
 * `apt install ansible` to install ansible
 * `sudo ls` to cache sudo privs for the ansible run 
@@ -19,7 +19,7 @@ Installs a "sensible base" for any kind of development, no IDE, no language spec
 
 * Docker desktop (you can enable k8s in it after) 
 * The holy `oh-my-zsh` and sets plugins (and makes `zsh` the default shell)
-* curl and other net-tooling
+* `curl` and other net-tooling
 * `git`, `gnupg2`, `jq`, `sshd` and various other tools found on development machines
 
 ### Optional software
@@ -43,7 +43,7 @@ For every language supported by the playbook:
 `ansible-playbook playbook.yaml -v -e install_all=true`
 
 ## Post run 
-This installer installs `nvm` and `pyenv` for dealing with python and node installs. 
+This installer installs `nvm` and `pyenv` for dealing with node and python installs. 
 Therefore, after the run it is up to you to install the desired versions of node/python as you
 see fit.
 

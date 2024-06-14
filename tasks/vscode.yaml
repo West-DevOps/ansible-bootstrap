@@ -11,7 +11,7 @@
 
 - name: Install rust vscode extensions
   shell:
-    cmd: "code --install-extension {{ item }} --force"
+    cmd: "code --install-extension {{ item }}"
   loop:
   - 1yib.rust-bundle
   - 1yib.nodejs-bundle
@@ -19,3 +19,5 @@
   - ms-python.python
   - cweijan.vscode-database-client2
   - cweijan.dbclient-jdbc
+  - ms-azuretools.vscode-docker
+
