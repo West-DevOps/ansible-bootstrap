@@ -1,7 +1,7 @@
 # ansible-bootstrap
-For installing development tools onto a fresh ubuntu machine.
+For installing the `West-DevOps` development toolbag onto a fresh ubuntu machine.
 
-It installs a few things "by default" and has variables to enable language dev envs. Docker desktop is installed by default so you can develop any language in containers and not bother installing any runtimes locally if you wish.
+It installs a few things "by default" and has variables to enable language specific dev envs. Docker desktop is installed by default so you can develop any language in containers and not bother installing any runtimes locally if you wish!
 
 ## Running
 
@@ -43,7 +43,7 @@ For every language supported by the playbook:
 `ansible-playbook playbook.yaml -v -e install_all=true`
 
 ## Post run 
-This installer installs `nvm` and `pyenv` for dealing with node and python installs. 
+This installer installs `nvm` and `pyenv` for dealing with nodejs and python installs. 
 Therefore, after the run it is up to you to install the desired versions of node/python as you
 see fit.
 
@@ -56,10 +56,12 @@ Install a version of nodejs via `nvm`:
 Ubuntu `22.04 LTS` ships with python `3.10` which is nice but `3.12` is out so we can install it
 with `pyenv`:
 
-`pyenv install 3.12`
+* `pyenv install 3.12` # Grab latest patch of 3.12 (`3.12.4` at time of writing)
+* `pyenv global 3.12`  # Make it default for you. 
 
 It might warn about tkinter but don't worry it still installs the version. 
 
 ## Contributing
 
-Just fork and submit a PR, if it's for a specific development need; try and gate it with a top-level `install_<something>` variable.  
+New features are always welcome, if it's for a specific development need; try and gate it with a top-level `install_<something>` variable.  Other than
+that go nuts and get a PR in! 
