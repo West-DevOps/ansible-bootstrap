@@ -10,6 +10,7 @@
     install_vscode: false
     install_k8s: false
     install_all: false
+    discord_version: "0.0.56"
   
   tasks:
   - name: Install base APT pkgs
@@ -88,6 +89,17 @@
       regexp: "^plugins=\\(.*\\)$"
       line: "plugins=(git docker kubectl ansible argocd gpg-agent node helm npm nvm poetry pyenv ssh virtualenv vscode tmux)"
   
+  - name: Download discord 
+    get_url:
+      url: https://dl.discordapp.net/apps/linux/{{ discord_version }}/discord-{{ discord_version }}.deb
+      dest: /tmp/discord.deb
+      mode: 0644
+
+  - name: Install discord
+    apt:
+      deb: /tmp/discord.deb
+    become: true
+
   - name: K8s tooling install
     include_tasks: tasks/k8s.yaml
     when: install_k8s != false or install_all != false     
