@@ -32,6 +32,8 @@
       - sqlite3
       - sqlite3-doc
       - apt-transport-https
+      - htop
+      - yamllint
     become: true
   
   - name: Ensure keyring
