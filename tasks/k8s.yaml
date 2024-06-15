@@ -22,3 +22,13 @@
     name:
     - kubectl
   become: true
+
+- name: Download helm install script
+  get_url:
+    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    dest: /tmp/get-helm-3.sh
+    mode: 0755
+
+- name: Install helm
+  script: 
+    cmd: /tmp/get-helm-3.sh
