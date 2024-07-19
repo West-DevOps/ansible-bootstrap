@@ -1,0 +1,7 @@
+- name: Install godot
+  unarchive:
+    src: https://github.com/godotengine/godot/releases/download/4.2.2-stable/Godot_v4.2.2-stable_linux.x86_64.zip
+    dest: /usr/bin
+    remote_src: true
+    mode: 0755
+  become: true

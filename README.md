@@ -1,5 +1,5 @@
 # ansible-bootstrap
-For installing the `West-DevOps` development toolbag onto a fresh ubuntu machine.
+For installing the `West-DevOps` development toolbag onto a fresh ubuntu 24.04 x86-64 machine.
 
 It installs a few things "by default" and has variables to enable language specific dev envs. Docker desktop is installed by default so you can develop any language in containers and not bother installing any runtimes locally if you wish!
 

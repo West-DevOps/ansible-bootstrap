@@ -8,6 +8,7 @@
   apt:
     deb: /tmp/vscode.deb
   become: true
+  ignore_errors: true
 
 - name: Install rust vscode extensions
   shell:

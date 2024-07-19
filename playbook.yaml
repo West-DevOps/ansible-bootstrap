@@ -9,8 +9,9 @@
     install_java: false
     install_vscode: false
     install_k8s: false
+    install_godot: false
     install_all: false
-    discord_version: "0.0.56"
+    discord_version: "0.0.60"
   
   tasks:
   - name: Install base APT pkgs
@@ -101,6 +102,7 @@
     apt:
       deb: /tmp/discord.deb
     become: true
+    ignore_errors: True
 
   - name: K8s tooling install
     include_tasks: tasks/k8s.yaml
@@ -121,6 +123,10 @@
   - name: Rust development
     include_tasks: tasks/rust.yaml
     when: install_rust != false or install_all != false
+
+  - name: Install godot
+    include_tasks: tasks/godot.yaml
+    when: install_godot != false or install_all != false
     
   - name: Java development kit
     apt:
